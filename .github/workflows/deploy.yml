@@ -21,11 +21,13 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Write service account credentials to file
-        run: echo "${{ secrets.FIREBASE_CREDENTIALS }}" > "$HOME/firebase-key.json"
+      - name: Write service account key
+        run: echo "${{ secrets.FIREBASE_CREDENTIALS }}" > $HOME/firebase-key.json
 
       - name: Deploy to Firebase
         env:
           GOOGLE_APPLICATION_CREDENTIALS: $HOME/firebase-key.json
         run: |
+          cd functions
+          npm install
           firebase deploy --only functions --project me-time-stories-beta-a
