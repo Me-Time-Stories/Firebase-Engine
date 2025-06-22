@@ -1,14 +1,7 @@
-options:
-  logging: CLOUD_LOGGING_ONLY
-
 steps:
   - name: 'gcr.io/cloud-builders/npm'
     dir: 'functions'
     args: ['install']
-
-  - name: 'gcr.io/cloud-builders/npm'
-    dir: 'functions'
-    args: ['run', 'build'] # Optional if using TypeScript or build script
 
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
@@ -22,3 +15,6 @@ steps:
         '--entry-point=personalizeStoriesOnProfileChange',
         '--source=functions'
       ]
+
+options:
+  logging: CLOUD_LOGGING_ONLY
