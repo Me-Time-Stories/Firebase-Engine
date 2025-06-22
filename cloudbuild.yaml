@@ -5,14 +5,17 @@ steps:
 
   - name: 'gcr.io/cloud-builders/npm'
     dir: 'functions'
-    args: ['run', 'build'] # Optional if using TypeScript or build script
+    args: ['run', 'build'] # Only if you have a build script, else remove this step
 
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['functions', 'deploy', 'personalizeStoriesOnProfileChange',
-           '--runtime=nodejs18',
-           '--trigger-event=providers/cloud.firestore/eventTypes/document.write',
-           '--trigger-resource=projects/_/databases/(default)/documents/children/{childId}',
-           '--project=me-time-stories-beta-a',
-           '--region=us-central1',
-           '--entry-point=personalizeStoriesOnProfileChange',
-           '--source=functions']
+    args:
+      [
+        'functions', 'deploy', 'personalizeStoriesOnProfileChange',
+        '--runtime=nodejs18',
+        '--trigger-event=providers/cloud.firestore/eventTypes/document.write',
+        '--trigger-resource=projects/_/databases/(default)/documents/children/{childId}',
+        '--project=me-time-stories-beta-a',
+        '--region=us-central1',
+        '--entry-point=personalizeStoriesOnProfileChange',
+        '--source=functions'
+      ]
