@@ -3,10 +3,6 @@ steps:
     dir: 'functions'
     args: ['install']
 
-  - name: 'gcr.io/cloud-builders/npm'
-    dir: 'functions'
-    args: ['run', 'build'] # Only if you have a build script, else remove this step
-
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       [
