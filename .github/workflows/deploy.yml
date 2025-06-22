@@ -24,6 +24,13 @@ jobs:
       - name: Write service account credentials to file
         run: echo "${{ secrets.FIREBASE_CREDENTIALS }}" > "${HOME}/firebase-key.json"
 
+      - name: Check for Firebase credentials file
+        run: |
+          if [ ! -s "${HOME}/firebase-key.json" ]; then
+            echo "Firebase credentials file missing or empty!"
+            exit 1
+          fi
+
       - name: Deploy to Firebase
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-key.json
